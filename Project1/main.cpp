@@ -30,6 +30,6 @@ int main(string Args[])
 	}
 	cout << "\n\n\n";
 
-	system("PAUSE");
+	//system("PAUSE");
 	return 0;
 }

@@ -71,7 +71,7 @@ bool PostFix::getErrorFlag() {
 
 // This function is intended to give hierarchy to the operators
 int PostFix::giveHierarchy(char symbol) {
-	string symbolsOrder = "*+&|(";
+	string symbolsOrder = "|&(+*";
 
 	// This function return the hierarchy for given symbols
 	return symbolsOrder.find(symbol);
@@ -94,16 +94,16 @@ void PostFix::insertOperator(char op) {
 
 // The trick happens here...
 void PostFix::generatePostFix() {
-	int tokensCount = 0;		// This variable will tell me when 2 tokens have an implicit '&'
+	bool signo = false;		// This variable will tell me when 2 tokens have an implicit '&'
 	// Main for loop to get all the stuff made...
 	for (int i = 0; i < _tokenVector.size(); i++) {
 		// We need to move inside the vector from left to right...
 		
 		switch (_tokenVector[i]) {
 		case '(' :
-			if (tokensCount <= 1) {
+			if (signo) {
 				insertOperator('&');
-				tokensCount -= 1;
+				signo = false;
 			}
 			_operatorStack.push(_tokenVector[i]);
 			break;
@@ -121,28 +121,48 @@ void PostFix::generatePostFix() {
 			}
 			break;
 		case '*':
-			if (tokensCount == 2) {
-				// Since the & is the lowest in the hierarchy, just push it...
-				_operatorStack.push('&');
-				tokensCount = 0;
+			if (signo) {
+				// Sign is needed here...
+				_operatorStack.push('*');
+				signo = false;
 			}
-			insertOperator('*');
+			else {
+				_errorFlag = true;
+				cout << "Error in the string. Char : " << i << endl;
+			}
 			break;
 		case '+':
-			if (tokensCount == 2) {
-				// Since the & is the lowest in the hierarchy, just push it...
-				_operatorStack.push('&');
-				tokensCount = 0;
+			if (signo) {
+				// Sign is needed here...
+				_operatorStack.push('+');
+				signo = false;
 			}
-			insertOperator('+');
+			else {
+				_errorFlag = true;
+				cout << "Error in the string. Char : " << i << endl;
+			}
 			break;
 		case '|':
-			insertOperator('|');
-			tokensCount = 1;
+			if (signo) {
+				// Sign is needed here...
+				_operatorStack.push('|');
+				signo = false;
+			}
+			else {
+				_errorFlag = true;
+				cout << "Error in the string. Char : " << i << endl;
+			}
 			break;
 		case '&':
-			insertOperator('&');
-			tokensCount = 1;
+			if (signo) {
+				// Sign is needed here...
+				_operatorStack.push('&');
+				signo = false;
+			}
+			else {
+				_errorFlag = true;
+				cout << "Error in the string. Char : " << i << endl;
+			}
 			break;
 		case ' ':
 			// Weeeeeeeeee...!!
@@ -151,12 +171,11 @@ void PostFix::generatePostFix() {
 			// Check for alhabetic tokens...
 			if ( isalpha(_tokenVector[i]) ) {
 				// if it's an alphabetic token then we check some more stuff...
-				if (tokensCount == 2) {
+				if (signo) {
 					insertOperator('&');
-					tokensCount = 1;
 				}
 				_outputVector.push_back(_tokenVector[i]);
-				tokensCount++;
+				signo = true;
 			}
 			else {
 				cout << "Invalid token at: " << i << endl;
