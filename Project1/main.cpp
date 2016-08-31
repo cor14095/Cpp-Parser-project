@@ -24,12 +24,23 @@ int main(string Args[])
 	// Generate postfix...
 	postFix.generatePostFix();
 	// Then we print the output vector...
+	string chain = "";
 	cout << "\n\n ________The resulting postfix string: ________\n";
 	for (int i = 0; i < postFix.getOutputVector().size(); i++) {
 		cout << postFix.getOutputVector()[i];
+		chain += postFix.getOutputVector()[i];
 	}
 	cout << "\n\n\n";
 
-	//system("PAUSE");
+	cout << "Is the chain valid? \n";
+	if (postFix.isValid(chain)) {
+		cout << "YES!!!\n\n";
+	}
+	else
+	{
+		cout << "no...\n\n";
+	}
+
+	system("PAUSE");
 	return 0;
 }

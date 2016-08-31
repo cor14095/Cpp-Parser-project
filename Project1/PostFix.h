@@ -1,4 +1,4 @@
-//#pragma once
+#pragma once
 #include <string>
 #include <stack> 
 #include <vector>
@@ -39,6 +39,9 @@ public:
 
 	// Let's do some magic kids!
 	void generatePostFix();
+
+	// Here we just evaluate that the expresion is fully correct.
+	bool isValid(string postFix);
 
 private:
 	

@@ -1,4 +1,4 @@
-//#pragma once
+#pragma once
 #include <iostream>
 #include <string>
 #include <stack>
@@ -17,4 +17,4 @@ private:
     
     // We need a stack to hold the nodes that we will generate
     
-}
+};

@@ -1,7 +1,9 @@
 ﻿  PostFix.cpp
 c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(25): warning C4018: '<': signed/unsigned mismatch
 c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(89): warning C4101: 'e': unreferenced local variable
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(99): warning C4018: '<': signed/unsigned mismatch
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(118): warning C4101: 'e': unreferenced local variable
-  Project1.vcxproj -> c:\users\perry\documents\visual studio 2015\Projects\Project1\Debug\Project1.exe
-  Project1.vcxproj -> c:\users\perry\documents\visual studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(101): warning C4018: '<': signed/unsigned mismatch
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(116): warning C4018: '<': signed/unsigned mismatch
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(143): warning C4101: 'e': unreferenced local variable
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(241): warning C4018: '<': signed/unsigned mismatch
+  Project1.vcxproj -> C:\Users\Perry\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
+  Project1.vcxproj -> C:\Users\Perry\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
