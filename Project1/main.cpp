@@ -2,6 +2,8 @@
 #include <string>
 
 #include "PostFix.h"
+#include "AST.h"
+#include "Node.h"
 
 using namespace std;
 
@@ -35,6 +37,12 @@ int main(string Args[])
 	cout << "Is the chain valid? \n";
 	if (postFix.isValid(chain)) {
 		cout << "YES!!!\n\n";
+		cout << "\n\nGenerate the AST:" << endl;
+		AST myAST(chain);
+
+		stack<Node> asTree(myAST.doASTree());
+		cout << asTree.top().toString() << endl;
+
 	}
 	else
 	{
