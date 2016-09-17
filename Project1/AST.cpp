@@ -5,6 +5,7 @@
 #include <stack>
 #include <vector>
 
+#include "BinTree.h"
 #include "Node.h"
 
 using namespace std;
@@ -21,67 +22,69 @@ AST::AST(string postfix) {
 	}
 }
 // The AST tree builder.
-stack<Node> AST::doASTree() {
+BinTree AST::doASTree() {
 	// since we know that the chain is valid because postFix is really OverPower...
-	Node temp1( " " );
-	Node temp2( " " );
+	Node temp1("");
+	Node temp2("");
+	BinTree tempTree1(Node(""));
+	BinTree tempTree2(Node(""));
+	BinTree tempTree(Node(""));
 	for (int i = 0; i < _inputVector.size(); i++) {
 		// We need a switch statement to check every character in the input vector.
 		switch (_inputVector[i])
 		{
 		case '*':
-			// For unary operators we first make a temporal node
-			// With value of the operator, and pointing to the character it will afect.
-			temp1 = Node(string(1, '*'), &_asTree.top());
+			temp1 = Node("*");
+			tempTree = BinTree(temp1, 'l', &_asTree.top());
 			_asTree.pop();
-			// After taking the element of the stack, we place the temp node in the stack as the new element.
-			_asTree.push(temp1);
+
+			_asTree.push(tempTree);
 			break;
 		case '+':
-			// For unary operators we first make a temporal node
-			// With value of the operator, and pointing to the character it will afect.
-			temp1 = Node(string(1, '+'), &_asTree.top());
+			temp1 = Node("+");
+			tempTree = BinTree(temp1, 'l', &_asTree.top());
 			_asTree.pop();
-			// After taking the element of the stack, we place the temp node in the stack as the new element.
-			_asTree.push(temp1);
+
+			_asTree.push(tempTree);
 			break;
 		case '|':
-			// For binary operators we first get the element at the top of the stack
-			// and save it at temp1, then we take it out of the stack.
-			temp1 = _asTree.top();
+			temp1 = Node("|");
+
+			tempTree1 = _asTree.top();
 			_asTree.pop();
-			// Then we create a new temp Node with both left and right pointers.
-			// befor pushing temp2, we must clean the top.
-			temp2 = Node(string(1, '|'), &temp1, &_asTree.top());
+
+			tempTree2 = _asTree.top();
 			_asTree.pop();
-			// After taking the element of the stack, we place the new node temp2 at the top.
-			_asTree.push(temp2);
+
+			tempTree = BinTree(temp1, &tempTree1, &tempTree2);
+			_asTree.push(tempTree);
 			break;
 		case '.':
-			// For binary operators we first get the element at the top of the stack
-			// and save it at temp1, then we take it out of the stack.
-			temp1 = _asTree.top();
-			_asTree.pop();
-			// Then we create a new temp Node with both left and right pointers.
-			// befor pushing temp2, we must clean the top.
-			temp2 = Node(string(1, '.'), &temp1, &_asTree.top());
-			_asTree.pop();
-			// After taking the element of the stack, we place the new node temp2 at the top.
-			_asTree.push(temp2);
+			temp1 = Node(".");
 
+			tempTree1 = _asTree.top();
+			_asTree.pop();
+
+			tempTree2 = _asTree.top();
+			_asTree.pop();
+
+			tempTree = BinTree(temp1, &tempTree1, &tempTree2);
+			_asTree.push(tempTree);
 			break;
 		case 'E':
-			// If we find an epsilon then we must change its symbol to the real epsilon...
-			temp1 = Node(string(1, 'ε'));
-			_asTree.push(temp1);
+			// Change E for epsilon.
+			temp1 = Node(to_string('ε'), true);
+			tempTree = BinTree(temp1);
+			_asTree.push(tempTree);
 			break;
 		default:
 			// Default means that I have a Character.
-			temp1 = Node( string(1, _inputVector[i]) );
-			_asTree.push(temp1);
+			temp1 = Node(to_string(_inputVector[i]), true);
+			tempTree = BinTree( temp1 );
+			_asTree.push(tempTree);
 			break;
 		}
 	}
 
-	return _asTree;
+	return tempTree;
 }

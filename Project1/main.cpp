@@ -3,7 +3,7 @@
 
 #include "PostFix.h"
 #include "AST.h"
-#include "Node.h"
+#include "BinTree.h"
 
 using namespace std;
 
@@ -40,8 +40,8 @@ int main(string Args[])
 		cout << "\n\nGenerate the AST:" << endl;
 		AST myAST(chain);
 
-		stack<Node> asTree(myAST.doASTree());
-		cout << asTree.top().toString() << endl;
+		BinTree asTree = myAST.doASTree();
+		cout << asTree.getMain().toString() << endl;
 
 	}
 	else

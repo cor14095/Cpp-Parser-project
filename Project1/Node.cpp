@@ -1,39 +1,40 @@
 #include "Node.h"
+#include <string>
 
 
-// General constructor...
-Node::Node()
-{
+// General constructor, no parameters.
+Node::Node() {
 	_value = "";
-	Node *_left;
-	Node *_right;
+	_level = -1;
+	_isLast = false;
 }
-// Constructor with only value.
+// Constructor with only value and no level.
 Node::Node(string value) {
 	_value = value;
-	Node *_left;
-	Node *_right;
+	_level = -1;
+	_isLast = false;
 }
-// Constructor with value and one pointer.
-Node::Node(string value, Node* point) {
+// Constructor with value and level.
+Node::Node(string value, int level) {
 	_value = value;
-	_left = point;
-	Node *_right;
+	_level = level;
+	_isLast = false;
+}
+// Constructor with value and is last.
+Node::Node(string value, bool isLast) {
+	_value = value;
+	_level = -1;
+	_isLast = isLast;
+}
+// Constructor with all the things, value, level and is last.
+Node::Node(string value, int level, bool isLast) {
+	_value = value;
+	_level = level;
+	_isLast = isLast;
 }
 
-// Constructor with all.
-Node::Node(string value, Node* left, Node* right) {
-	_value = value;
-	_left = left;
-	_right = right;
-}
-
-// My toString for node
 string Node::toString() {
-	string chain = " ";	
-	chain += '(' + _value + ')';
-	chain += '\n';
-	return chain;
+	return "(" + to_string(_level) + ") " + _value;
 }
 
 Node::~Node()

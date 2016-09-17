@@ -1,0 +1,10 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+Debug/
+Project1.sln
+Project1.VC.db
+Project1/Debug
+Project1/PostFix.h.gch
+Project1/Project1.vcxproj
+Project1/Project1.vcxproj.filters
