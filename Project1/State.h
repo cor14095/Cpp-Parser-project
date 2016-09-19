@@ -23,7 +23,8 @@ Private Variables:
 
 class State
 {
-protected:
+public:
+	// Transition must be public to be used in the graph.
 	class Transition {
 		/*
 		Transitions is just a class that let me save
@@ -53,7 +54,6 @@ protected:
 		State* *_next;
 	};
 
-public:
 	// General constructor.
 	State();
 	// Constructor with only name.
@@ -64,6 +64,9 @@ public:
 	// General destructor.
 	~State();
 
+	// Setter for isFinal.
+	void setIsFinal(bool isFinal) { _isFinal = isFinal; };
+
 	// Method to add a transition to the transitions stack.
 	void addTransition(Transition transition);
 	// Function to get next States.
@@ -72,6 +75,7 @@ public:
 private:
 	char _name;
 	stack<Transition> *_transitions;
+	bool _isFinal;
 
 };
 

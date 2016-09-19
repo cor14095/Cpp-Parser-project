@@ -63,8 +63,8 @@ BinTree AST::doASTree() {
 
 			treesStack.push(&*new BinTree());
 			treesStack.top()->setMain(*new Node('|'));
-			treesStack.top()->setLeft(tempTree1);
-			treesStack.top()->setRight(tempTree2);
+			treesStack.top()->setLeft(tempTree2);
+			treesStack.top()->setRight(tempTree1);
 			break;
 		case '.':
 			// Since it's a binary operator, we just need 1 top...
@@ -80,8 +80,8 @@ BinTree AST::doASTree() {
 
 			treesStack.push(&*new BinTree());
 			treesStack.top()->setMain(*new Node('.'));
-			treesStack.top()->setLeft(tempTree1);
-			treesStack.top()->setRight(tempTree2);
+			treesStack.top()->setLeft(tempTree2);
+			treesStack.top()->setRight(tempTree1);
 			break;
 		default:
 			// Default means that I have a Character.

@@ -41,9 +41,11 @@ int main()
 		AST myAST(chain);
 
 		BinTree asTree = myAST.doASTree();
-		string chain = "";
-		cout << asTree.printTree(chain) << endl;
-		cout << asTree.getSize() << endl;
+		string chain2 = "";
+		chain2 = asTree.printTree(chain2);
+		//reverse(chain2.begin(), chain2.end());
+
+		cout << "Chain is: " << chain2 << endl;
 	}
 	else
 	{
