@@ -23,7 +23,7 @@ BinTree AST::doASTree() {
 	BinTree *tempTree2 = new BinTree();
 
 	// since we know that the chain is valid because postFix is really OverPower...
-	for (int i = 0; i < _inputVector.size(); i++) {
+	for (size_t i = 0; i < _inputVector.size(); i++) {
 		// We need a switch statement to check every character in the input vector.
 		switch (_inputVector[i])
 		{

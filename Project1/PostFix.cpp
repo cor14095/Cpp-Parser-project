@@ -27,7 +27,7 @@ PostFix::PostFix(string chain)
 	// This falg is to check if user did something wrong...
 	_errorFlag = false;
 	// We need to split our chain and store it in a vector.
-	for (int i = 0; i < _chain.size(); i++) {
+	for (size_t i = 0; i < _chain.size(); i++) {
 		_tokenVector.push_back(_chain.at(i));
 	}
 
@@ -92,7 +92,7 @@ void PostFix::insertOperator(char op) {
 		_operatorStack.push(op);
 	}
 	catch (int e) {
-		cout << "Error using operators.\n";
+		cout << "Error using operators.\nError code: " << e << endl;
 		_errorFlag = true;
 	}
 }
@@ -103,7 +103,7 @@ bool isLast(string chain) {
 		return true;		// if it's the last character in the chain...
 	}
 
-	for (int i = 1 ; i < chain.size(); i++) {
+	for (size_t i = 1 ; i < chain.size(); i++) {
 		if ( (isalpha(chain.at(i))) || (chain.at(i)=='*') || (chain.at(i)=='+') ) {
 			// If there is another aplhabetic character in the chain!
 			return false;
@@ -122,7 +122,7 @@ void PostFix::generatePostFix() {
 	string testStack = "";
 
 	// Main for loop to get all the stuff made...
-	for (int i = 0; i < _tokenVector.size(); i++) {
+	for (size_t i = 0; i < _tokenVector.size(); i++) {
 		// We need to move inside the vector from left to right...
 		
 		switch (_tokenVector[i]) {
@@ -150,7 +150,7 @@ void PostFix::generatePostFix() {
 				}
 			}
 			catch (int e) {
-				cout << "Error using parenthesis at: " << i << endl;
+				cout << "Error using parenthesis at: " << i << "\n Error code: " << e << endl;
 				_errorFlag = true;
 			}
 			break;
@@ -212,14 +212,16 @@ void PostFix::generatePostFix() {
 
 		default:
 			// Check for alhabetic or digit tokens...
-			if ( isalpha(_tokenVector[i]) || isdigit(_tokenVector[i]) || (_tokenVector[i] == 'ε') ) {
+			// || (_tokenVector[i] == 'ε'
+			if ( isalpha(_tokenVector[i]) || isdigit(_tokenVector[i])) {
 				// if it's an alphabetic token then we check some more stuff...
 				if (signo) {
 					insertOperator('.');
 					signo = false;
 				}
 				// Here we need to see if the user input a 'ε' or an E.
-				if (_tokenVector[i] == 'E' || _tokenVector[i] == 'ε') {
+				// || _tokenVector[i] == 'ε'
+				if (_tokenVector[i] == 'E') {
 					_outputVector.push_back('E');
 				}
 				else {
@@ -277,7 +279,7 @@ bool PostFix::isValid(string postFix) {
 	char temp1 = ' ';
 	char temp2 = ' ';
 
-	for (int i = 0; i < _outputVector.size(); i++) {
+	for (size_t i = 0; i < _outputVector.size(); i++) {
 
 		// The 'z' symbol is to represent a VALID expresion.
 		switch (_outputVector[i])
@@ -287,7 +289,8 @@ bool PostFix::isValid(string postFix) {
 				temp1 = temp.top();
 				temp.pop();
 			}
-			if (isalpha(temp1) || (isdigit(temp1)) || temp1 == 'ε') {	// Check if temp1 is a valid character
+			// || temp1 == 'ε'
+			if (isalpha(temp1) || (isdigit(temp1)) ) {	// Check if temp1 is a valid character
 				temp.push('z');
 			}
 			else					// We don't like error like the user...
@@ -301,7 +304,8 @@ bool PostFix::isValid(string postFix) {
 				temp1 = temp.top();
 				temp.pop();
 			}
-			if (isalpha(temp1) || (isdigit(temp1)) || temp1 == 'ε') {	// Check if temp1 is a valid character
+			//|| temp1 == 'ε'
+			if (isalpha(temp1) || (isdigit(temp1))) {	// Check if temp1 is a valid character
 				temp.push('z');
 			}
 			else					// We don't like error like the user...
@@ -319,7 +323,8 @@ bool PostFix::isValid(string postFix) {
 				temp2 = temp.top();
 				temp.pop();
 			}
-			if ( (isalpha(temp1) || (isdigit(temp1)) || temp1 == 'ε') && (isalpha(temp2) || (isdigit(temp2)) || temp2 == 'ε') ) {	// Check if temp1 and temp 2 are valid character
+			// || temp1 == 'ε' || temp2 == 'ε'
+			if ( (isalpha(temp1) || (isdigit(temp1))) && (isalpha(temp2) || (isdigit(temp2))) ) {	// Check if temp1 and temp 2 are valid character
 				temp.push('z');
 			}
 			else					// We don't like error like the user...
@@ -337,7 +342,8 @@ bool PostFix::isValid(string postFix) {
 				temp2 = temp.top();
 				temp.pop();
 			}
-			if ((isalpha(temp1) || (isdigit(temp1)) || temp1 == 'ε') && (isalpha(temp2) || (isdigit(temp2)) || temp2 == 'ε')) {	// Check if temp1 and temp 2 are valid character
+			// || temp1 == 'ε' || temp2 == 'ε'
+			if ((isalpha(temp1) || (isdigit(temp1))) && (isalpha(temp2) || (isdigit(temp2)))) {	// Check if temp1 and temp 2 are valid character
 				temp.push('z');
 			}
 			else					// We don't like error like the user...
@@ -353,7 +359,8 @@ bool PostFix::isValid(string postFix) {
 			// If it's a character
 			// Quick fix here, if we check the token vector then it might crash in some cases...
 			// NEED TO ADD a 'ε' and numeric check here.
-			if (isalpha(_outputVector[i]) || isdigit(_outputVector[i]) || (_outputVector[i] == 'ε')) {
+			//  || (_outputVector[i] == 'ε'
+			if (isalpha(_outputVector[i]) || isdigit(_outputVector[i])) {
 				temp.push(_outputVector[i]);
 			}
 			else	// If it's not one of the symbols or avalid character, then it's an error and we don't like errors...

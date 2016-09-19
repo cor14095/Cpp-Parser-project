@@ -115,14 +115,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PostFix.cpp" />
-    <ClCompile Include="Thompson.cpp" />
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AST.h" />
     <ClInclude Include="BinTree.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="PostFix.h" />
-    <ClInclude Include="Thompson.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="State.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

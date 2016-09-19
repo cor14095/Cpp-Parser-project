@@ -20,7 +20,7 @@ int main()
 	PostFix postFix(testChain);
 	cout << " ________The input: ________\n";
 	// Then we print the vector...
-	for (int i = 0; i < postFix.getTokenVector().size(); i++) {
+	for (size_t i = 0; i < postFix.getTokenVector().size(); i++) {
 		cout << "Element " << i + 1 << " is: " << postFix.getTokenVector()[i] << endl;
 	}
 	// Generate postfix...
@@ -28,7 +28,7 @@ int main()
 	// Then we print the output vector...
 	string chain = "";
 	cout << "\n\n ________The resulting postfix string: ________\n";
-	for (int i = 0; i < postFix.getOutputVector().size(); i++) {
+	for (size_t i = 0; i < postFix.getOutputVector().size(); i++) {
 		cout << postFix.getOutputVector()[i];
 		chain += postFix.getOutputVector()[i];
 	}
