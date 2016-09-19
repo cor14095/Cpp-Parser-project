@@ -4,6 +4,7 @@
 #include "PostFix.h"
 #include "AST.h"
 #include "BinTree.h"
+#include "Graph.h"
 
 using namespace std;
 
@@ -46,6 +47,9 @@ int main()
 		//reverse(chain2.begin(), chain2.end());
 
 		cout << "Chain is: " << chain2 << endl;
+
+		Graph nfa;
+		nfa.makeNFA(chain);
 	}
 	else
 	{

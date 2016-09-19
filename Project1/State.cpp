@@ -5,19 +5,19 @@
 
 // General constructor.
 State::State() {
-	_name = ' ';
-	stack<Transition> *_transitions;
+	int _name = *new int();
+	stack<Transition*> _transitions = *new stack<Transition*>();
 }
 // Constructor with only name.
-State::State(char name) {
+State::State(int name) {
 	_name = name;
-	stack<Transition> *_transitions;
+	stack<Transition*> _transitions = *new stack<Transition*>();
 }
 //Constructor with name and 1 or more transitions
-State::State(char name, Transition transitions[], int size) {
+State::State(int name, vector<Transition> transitions, int size) {
 	_name = name;
 	for (int i = 0; i < size; i++) {
-		_transitions->push(transitions[i]);
+		_transitions.push_back(&transitions[i]);
 	}
 }
 
@@ -27,23 +27,21 @@ State::~State() {
 }
 
 // Method to add a transition to the transitions stack.
-void State::addTransition(Transition transition) {
-	_transitions->push(transition);
+void State::addTransition(Transition *transition) {
+	_transitions.push_back(transition);
 }
-// Function to get next States.
-list<State*> State::getNext(char transition) {
-	list<State*> transitions;
-	stack<Transition> tempTransitions = *_transitions;
 
-	// We're gonna move in the temp stack to don't mess around with stuff
-	while (!tempTransitions.empty()) {
+// Function to get next States.
+vector<State*> State::getNext(char transition) {
+	vector<State*> transitions;
+
+	// We're gonna move in the list index to don't mess around with stuff
+	for (size_t i = 0; i < _transitions.size(); i++) {
 		// If the names are the same, then the transition can happend
 		// so we save the state for that transition.
-		if (tempTransitions.top().getName() == transition) {
-			transitions.push_back(tempTransitions.top().getState());
+		if (_transitions[i]->getName() == &transition) {
+			transitions.push_back(_transitions[i]->getState());
 		}
-		// After the check, just pop the stack...
-		tempTransitions.pop();
 	}
 
 	// At the end we should have a list of the states were we can go 

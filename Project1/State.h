@@ -1,8 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <stack>
-#include <list>
+#include <vector>
 
 using namespace std;
 
@@ -33,48 +32,55 @@ public:
 	public:
 		// Constructors....
 		Transition() {
-			_name = ' ';
-			*_next = NULL;
+			char *_name = NULL;
+			State *_next = NULL;
 		};
-		Transition(char name, State *next) {
+		Transition(char *name, State *next) {
 			_name = name;
-			*_next = next;
+			_next = next;
 		};
 
 		// Setters...
-		void setName(char name) { _name = name; };
-		void setNext(State *next) { _next = &next; };
+		void setName(char *name) { _name = name; };
+		void setNext(State *next) { _next = next; };
 
 		// Getters...
-		char getName() { return _name; };
-		State *getState() { return *_next; };
+		char *getName() { return _name; };
+		State *getState() { return _next; };
 
 	private:
-		char _name;
-		State* *_next;
+		char *_name;
+		State *_next;
 	};
 
 	// General constructor.
 	State();
 	// Constructor with only name.
-	State(char name);
+	State(int name);
 	//Constructor with name and 1 or more transitions
-	State(char name, Transition transitions[], int size);
+	State(int name, vector<Transition> transitions, int size);
 
 	// General destructor.
 	~State();
 
 	// Setter for isFinal.
 	void setIsFinal(bool isFinal) { _isFinal = isFinal; };
+	// Setter for transition.
+	void setTransitions(vector<Transition*> transitions) { _transitions = transitions; };
+	void setName(int name) { _name = name; };
+	
+	// Getters...
+	int getName() { return _name; };
+	vector<Transition*> getTransitions() { return _transitions; };
 
 	// Method to add a transition to the transitions stack.
-	void addTransition(Transition transition);
+	void addTransition(Transition *transition);
 	// Function to get next States.
-	list<State*> getNext(char transition);
+	vector<State*> getNext(char transition);
 
 private:
-	char _name;
-	stack<Transition> *_transitions;
+	int _name;
+	vector<Transition*> _transitions;
 	bool _isFinal;
 
 };
