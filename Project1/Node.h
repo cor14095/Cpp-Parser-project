@@ -26,16 +26,23 @@ public:
 	// General constructor, no parameters.
 	Node();
 	// Constructor with only value and no level.
-	Node(string value);
+	Node(char value);
 	// Constructor with value and level.
-	Node(string value, int level);
+	Node(char value, int level);
 	// Constructor with value and is last.
-	Node(string value, bool isLast);
+	Node(char value, bool isLast);
 	// Constructor with all the things, value, level and is last.
-	Node(string value, int level, bool isLast);
+	Node(char value, int level, bool isLast);
 
 	// General destructor.
 	~Node();
+
+	//Setters...
+	void setValue(char value) { _value = value; };
+	void setLevel(int level) { _level = level; };
+
+	// Getters...
+	char getValue() { return _value; };
 
 	// toString
 	string toString();
@@ -43,7 +50,7 @@ public:
 
 private:
 	// The value in the node
-	string _value;
+	char _value;
 	// The level of the node
 	int _level;
 	// A flag to know if this node is last or not.

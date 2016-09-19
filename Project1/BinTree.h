@@ -31,6 +31,14 @@ public:
 	BinTree(Node main, char side, BinTree *node);
 	// Constructor with all parameters.
 	BinTree(Node main, BinTree *left, BinTree *right);
+	// Constructor with main node and no left or right
+	BinTree(Node *main);
+	// Contructor with main and left or right node
+	BinTree(Node *main, char side, BinTree *node);
+	// Constructor with all parameters.
+	BinTree(Node *main, BinTree *left, BinTree *right);
+	// Constructor with all parameters.
+	BinTree(Node main, BinTree left, BinTree right);
 
 	// Setters...
 	void setMain(Node main) { _mainNode = main; };
@@ -41,9 +49,10 @@ public:
 	Node getMain() { return _mainNode; };
 	BinTree *getLeft() { return _leftNode; };
 	BinTree *getRight() { return _rightNode; };
+	int getSize() { return _size; };
 
 	// To string...
-	string toString();
+	string printTree(string &chain);
 
 	~BinTree();
 private:
@@ -54,5 +63,7 @@ private:
 	BinTree* _leftNode;
 	// Right node.
 	BinTree* _rightNode;
+	// Tree size.
+	int _size;
 };
 

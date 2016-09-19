@@ -5,6 +5,29 @@
 
 using namespace std;
 
+/*
+<CLASS DESCRIPTION!>
+Summary:
+- Postfix class recibe a string and converts it to postfix order.
+
+Description:
+- Postfix class wil ONLY WORK for regular expresion following this:
+-- * : Klin Operator.
+-- + : Klin without 0.
+-- . : AND.
+-- | : OR.
+-- ? : Epsilon or any character(a|E).
+-- E : Epsilon.
+-- Any alphanumeric character as valid characters, only 1 digit numbers.
+
+Private Variables:
+- Operator stack: Is a stack to hold the operators.
+- Chain: Input argumet for expresion.
+- Token vector: A vector to hold the input chain as a vector.
+- Output vector: The vector with the chain in postfix order.
+- Error flag: Flag to point if there was an error in the postfix.
+*/
+
 class PostFix
 {
 public:

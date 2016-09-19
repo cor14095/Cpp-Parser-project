@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int main(string Args[]) 
+int main() 
 {
 	// Some test variables...
 	string testChain;
@@ -41,8 +41,9 @@ int main(string Args[])
 		AST myAST(chain);
 
 		BinTree asTree = myAST.doASTree();
-		cout << asTree.getMain().toString() << endl;
-
+		string chain = "";
+		cout << asTree.printTree(chain) << endl;
+		cout << asTree.getSize() << endl;
 	}
 	else
 	{
