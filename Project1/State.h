@@ -4,7 +4,6 @@
 #include <stack>
 #include <list>
 
-
 using namespace std;
 
 /*
@@ -30,16 +29,16 @@ protected:
 		Transitions is just a class that let me save
 		in a order way some stuff for each State.
 		*/
-	private:
+	public:
 		// Constructors....
 		Transition() {
 			_name = ' ';
 			*_next = NULL;
-		}
+		};
 		Transition(char name, State *next) {
 			_name = name;
 			*_next = next;
-		}
+		};
 
 		// Setters...
 		void setName(char name) { _name = name; };
@@ -49,17 +48,18 @@ protected:
 		char getName() { return _name; };
 		State *getState() { return *_next; };
 
-	public:
+	private:
 		char _name;
 		State* *_next;
 	};
+
 public:
 	// General constructor.
 	State();
 	// Constructor with only name.
 	State(char name);
 	//Constructor with name and 1 or more transitions
-	State(char name, Transition transitions[]);
+	State(char name, Transition transitions[], int size);
 
 	// General destructor.
 	~State();
@@ -71,7 +71,7 @@ public:
 
 private:
 	char _name;
-	stack<Transition> _transitions;
+	stack<Transition> *_transitions;
 
 };
 
