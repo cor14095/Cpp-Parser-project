@@ -1,4 +1,4 @@
-﻿#include "AST.h"
+#include "AST.h"
 
 #include <iostream>
 #include <string>
@@ -113,6 +113,6 @@ BinTree AST::doASTree() {
 	treesStack.front()->setMain(tempNode);
 	treesStack.front()->setLeft(tempTree1);
 	treesStack.front()->setRight(tempTree2);
-
+	
 	return *treesStack.front();
 }

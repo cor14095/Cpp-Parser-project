@@ -7,7 +7,7 @@
 
 // General constructor...
 BinTree::BinTree() {
-	_mainNode = Node(' ');
+	_mainNode = *new Node();
 	BinTree *_leftNode = NULL;
 	BinTree *_rightNode = NULL;
 	_size = 0;
@@ -96,15 +96,21 @@ BinTree::BinTree(Node main, BinTree left, BinTree right) {
 
 // To string...
 string BinTree::printTree(string &chain) {
-	if (_leftNode != NULL) {
-		_leftNode->printTree(chain);
+	if (_mainNode.getValue() == '#') {
+		chain += '#';
+		return chain;
 	}
-	chain += _mainNode.getValue();
-	if (_rightNode != NULL) {
-		_rightNode -> printTree(chain);
+	else {
+		if (_leftNode != NULL) {
+			_leftNode->printTree(chain);
+		}
+		chain += _mainNode.getValue();
+		if (_rightNode != NULL) {
+			_rightNode -> printTree(chain);
+		}
+		
+		return chain;
 	}
-
-	return chain;
 }
 
 BinTree::~BinTree()

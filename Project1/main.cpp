@@ -42,8 +42,8 @@ int main()
 		AST myAST(chain);
 
 		BinTree asTree = myAST.doASTree();
-		string chain2 = "";
-		chain2 = asTree.printTree(chain2);
+		string chain2 = " ";
+		//chain2 = asTree.printTree(chain2);
 		//reverse(chain2.begin(), chain2.end());
 
 		cout << "Chain is: " << chain2 << endl;
@@ -52,7 +52,7 @@ int main()
 		string nameNFA = "NFA";
 		nfa = nfa->makeNFA(chain);
 		nfa->asFile(*nfa, nameNFA, 0);
-		cout << "\n\nEl archivo del NFA se creo con exito!\n\n" << endl;
+		cout << "\n\nEl archivo del NFA se creo con exito!\n\nProbemos el AFN:\n" << endl;
 
 		string simulation = "Perry";
 		while (true) {
@@ -75,7 +75,7 @@ int main()
 		DFA = nfa->NFAtoDFA(nfa);
 		string nameDFA = "DFA";
 		DFA->asFile(*DFA, nameDFA, 1);
-		cout << "\n\nEl archivo del AFD se creo con exito!\n\n" << endl;
+		cout << "\n\nEl archivo del AFD se creo con exito!\n\nProbemos el AFD:\n" << endl;
 		simulation = "Perry";
 		while (true) {
 			cout << "Ingrese la cadena que desea probar, 'Salir' para terminar\n" << endl;

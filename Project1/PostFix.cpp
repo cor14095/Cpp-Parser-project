@@ -1,4 +1,4 @@
-﻿#include "PostFix.h"
+#include "PostFix.h"
 #include <stack>
 #include <list>
 #include <string>

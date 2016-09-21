@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <algorithm>
 #include <vector>
@@ -694,7 +694,7 @@ bool Graph::simulateDFA(Graph *DFA, string chain) {
 	S = move(DFA->getStart(), chain[0]);
 
 	// Now we iterate through the NFA.
-	size_t i = 0;
+	size_t i = 1;
 	while (i < chain.size()) {
 		S = move(S, chain[i]);
 		i++;
