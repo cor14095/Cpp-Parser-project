@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include <stack>
+#include <list>
 #include <vector>
 
 #include "BinTree.h"
@@ -18,9 +18,10 @@ AST::AST(string postfix) {
 // The AST tree builder.
 BinTree AST::doASTree() {
 	// Some variables...
-	stack<BinTree*> treesStack;
+	list<BinTree*> treesStack;
 	BinTree *tempTree1 = new BinTree();
 	BinTree *tempTree2 = new BinTree();
+	Node tempNode = *new Node();
 
 	// since we know that the chain is valid because postFix is really OverPower...
 	for (size_t i = 0; i < _inputVector.size(); i++) {
@@ -29,68 +30,89 @@ BinTree AST::doASTree() {
 		{
 		case '*':
 			// Since it's a binary operator, we just need 1 top...
-			tempTree1 = new BinTree(treesStack.top()->getMain()
-				, treesStack.top()->getLeft()
-				, treesStack.top()->getRight());
-			treesStack.pop();
+			tempTree1 = new BinTree(treesStack.front()->getMain()
+				, treesStack.front()->getLeft()
+				, treesStack.front()->getRight());
+			treesStack.pop_front();
 
-			treesStack.push(&*new BinTree());
-			treesStack.top()->setMain(*new Node('*'));
-			treesStack.top()->setLeft(tempTree1);
+			treesStack.push_front(&*new BinTree());
+			tempNode = *new Node('*');
+			treesStack.front()->setMain(tempNode);
+			treesStack.front()->setLeft(tempTree1);
 			break;
 		case '+':
-			// Since it's a binary operator, we just need 1 top...
-			tempTree1 = new BinTree(treesStack.top()->getMain()
-				, treesStack.top()->getLeft()
-				, treesStack.top()->getRight());
-			treesStack.pop();
+			tempTree1 = new BinTree(treesStack.front()->getMain()
+				, treesStack.front()->getLeft()
+				, treesStack.front()->getRight());
+			treesStack.pop_front();
 
-			treesStack.push(&*new BinTree());
-			treesStack.top()->setMain(*new Node('+'));
-			treesStack.top()->setLeft(tempTree1);
+			treesStack.push_front(&*new BinTree());
+			tempNode = *new Node('+');
+			treesStack.front()->setMain(tempNode);
+			treesStack.front()->setLeft(tempTree1);
 			break;
 		case '|':
 			// Since it's a binary operator, we just need 1 top...
-			tempTree1 = new BinTree(treesStack.top()->getMain()
-				, treesStack.top()->getLeft()
-				, treesStack.top()->getRight());
-			treesStack.pop();
+			tempTree1 = new BinTree(treesStack.front()->getMain()
+				, treesStack.front()->getLeft()
+				, treesStack.front()->getRight());
+			treesStack.pop_front();
 
-			tempTree2 = new BinTree(treesStack.top()->getMain()
-				, treesStack.top()->getLeft()
-				, treesStack.top()->getRight());
-			treesStack.pop();
+			tempTree2 = new BinTree(treesStack.front()->getMain()
+				, treesStack.front()->getLeft()
+				, treesStack.front()->getRight());
+			treesStack.pop_front();
 
-			treesStack.push(&*new BinTree());
-			treesStack.top()->setMain(*new Node('|'));
-			treesStack.top()->setLeft(tempTree2);
-			treesStack.top()->setRight(tempTree1);
+			treesStack.push_front(&*new BinTree());
+			tempNode = *new Node('|');
+			treesStack.front()->setMain(tempNode);
+			treesStack.front()->setLeft(tempTree1);
+			treesStack.front()->setRight(tempTree2);
 			break;
 		case '.':
 			// Since it's a binary operator, we just need 1 top...
-			tempTree1 = new BinTree(treesStack.top()->getMain()
-				, treesStack.top()->getLeft()
-				, treesStack.top()->getRight());
-			treesStack.pop();
+			tempTree1 = new BinTree(treesStack.front()->getMain()
+				, treesStack.front()->getLeft()
+				, treesStack.front()->getRight());
+			treesStack.pop_front();
 
-			tempTree2 = new BinTree(treesStack.top()->getMain()
-				, treesStack.top()->getLeft()
-				, treesStack.top()->getRight());
-			treesStack.pop();
+			tempTree2 = new BinTree(treesStack.front()->getMain()
+				, treesStack.front()->getLeft()
+				, treesStack.front()->getRight());
+			treesStack.pop_front();
 
-			treesStack.push(&*new BinTree());
-			treesStack.top()->setMain(*new Node('.'));
-			treesStack.top()->setLeft(tempTree2);
-			treesStack.top()->setRight(tempTree1);
+			treesStack.push_front(&*new BinTree());
+			tempNode = *new Node('.');
+			treesStack.front()->setMain(tempNode);
+			treesStack.front()->setLeft(tempTree1);
+			treesStack.front()->setRight(tempTree2);
 			break;
 		default:
 			// Default means that I have a Character.
-			treesStack.push(&*new BinTree(*new Node(_inputVector[i], true)));
+			tempNode = *new Node(_inputVector[i], true);
+			treesStack.push_back(&*new BinTree());
+			treesStack.back()->setMain(tempNode);
 			break;
 		}
 
 	}
 
+	// I need to add the stop simbol.
+	// Since it's a binary operator, we just need 1 top...
+	tempTree1 = new BinTree(treesStack.front()->getMain()
+		, treesStack.front()->getLeft()
+		, treesStack.front()->getRight());
+	treesStack.pop_front();
 
-	return *treesStack.top();
+	tempNode = *new Node('#', true);
+	tempTree2 = new BinTree();
+	tempTree2->setMain(tempNode);
+
+	treesStack.push_front(&*new BinTree());
+	tempNode = *new Node('.');
+	treesStack.front()->setMain(tempNode);
+	treesStack.front()->setLeft(tempTree1);
+	treesStack.front()->setRight(tempTree2);
+
+	return *treesStack.front();
 }

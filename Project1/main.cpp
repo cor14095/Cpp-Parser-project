@@ -97,7 +97,5 @@ int main()
 	{
 		cout << "no...\n\n";
 	}
-
-	system("PAUSE");
 	return 0;
 }
