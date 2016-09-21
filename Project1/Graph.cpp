@@ -3,10 +3,13 @@
 #include <algorithm>
 #include <vector>
 #include <stack>
+#include <array>
 #include <string>
 
 #include "State.h"
 #include "Graph.h"
+
+using namespace std;
 
 // General constructor.
 Graph::Graph() {
@@ -16,27 +19,7 @@ Graph::Graph() {
 	State *_startState = new State();
 	State *_endStates = new State();
 }
-// Constructor for a character.
-Graph::Graph(int name, char simbol) {
-	char epsilon = 'E';
-	vector<State*> _states = *new vector<State*>();
-	vector<char*> _simbols = *new vector<char*>();
-	vector<State::Transition*> _transitions = *new vector<State::Transition*>();
-	State *_startState = new State();
-	State *_endStates = new State();
 
-	name++;
-	_endState = new State(name);
-	_endState->setIsFinal(true);
-	State::Transition *t = new State::Transition(simbol, _endState);
-	name--;
-	_startState = new State(name);
-	_startState->addTransition(t);
-
-	_transitions.push_back(t);
-	_states.push_back(_endState);
-	_states.push_back(_startState);
-}
 // Constructor with all parameters.
 Graph::Graph(vector<State*> states, vector<char> simbols, vector<State::Transition*> transitions, State *startState, State *endState) {
 	_states = states;
@@ -394,7 +377,9 @@ Graph *Graph::makeNFA(string expression) {
 			subGraphs.top()->setTransitions(transitions);
 			subGraphs.top()->setStates(states);
 
-			simbols.push_back(expression[i]);
+			if (find(simbols.begin(), simbols.end(), expression[i]) == simbols.end()) {
+				simbols.push_back(expression[i]);
+			}
 			numberOfStates++;
 			break;
 		}
@@ -491,28 +476,19 @@ vector<State*> move(vector<State*> T, char a) {
 		}
 	}
 
-	size_t i = 0;
-	while (i < tempStates.size()) {
-		copy1 = tempStates[i]->getNext(a);
-		// We need to know if there's any duplicated element.
-		for (size_t j = 0; j < copy1.size(); j++) {
-			if (find(tempStates.begin(), tempStates.end(), copy1[j]) == tempStates.end()) {
-				// If the copy element k, is NOT in the vector tempState, it returned last,
-				// then we must add it to the tempStates subset, meaning that it is a state 
-				// that's not been visited.
-				copy2.insert(copy2.end(), copy1[j]);
-			}
-		}
-		// Now we insert the copy 2 elements, that are elements that were not in the subset.
-		tempStates.insert(tempStates.end(), copy2.begin(), copy2.end());
-		// and clean the copy2 subset.
-		copy2 = *new vector<State*>();
-		i++;
-	}
+	return tempStates;
+}
 
+// Move(T, a) is a function that returns a subset of states from the NFA that have a transition a, from any state from the State T.
+vector<State*> move(State* T, char a) {
+	vector<State*> tempStates = *new vector<State*>();
+
+	// The first elements must be searched apart.
+	tempStates = T->getNext(a);
 
 	return tempStates;
 }
+
 
 void TEST(Graph *NFA, char a) {
 	// THIS FUNCTION WILL ONLY BE USED TO TEST SUTFF
@@ -527,7 +503,6 @@ void TEST(Graph *NFA, char a) {
 	eClosure(test1);
 	move(NFA->getStates(), 'a');
 }
-
 
 // This function main purpose is to tell if the given chan is valid acording to the NFA constructed.
 bool Graph::simulateNFA(Graph *NFA, string chain) {
@@ -553,10 +528,10 @@ bool Graph::simulateNFA(Graph *NFA, string chain) {
 }
 
 // This method main purpose is to return the given Graph as a File.
-void Graph::asFile(Graph &graph, string &name) {
+void Graph::asFile(Graph &graph, string &name, int type) {
 	// Declaring string variables to hold the values to print.
 	string states = "ESTADOS = { ";
-	int state = 0;
+	int temp = ' ';
 	string simbols = "SIMBOLOS = { ";
 	string transitions = "TRANSICIONES = { ";
 	string start = "INICIO = { ";
@@ -564,29 +539,61 @@ void Graph::asFile(Graph &graph, string &name) {
 
 	try {
 		ofstream outfile(name + ".txt");
-
-		// Getting the states...
-		for (size_t i = 0; i < _states.size(); i++) {
-			state = _states[i]->getName();
-			states += to_string(state) + ", ";
-			//cout << _states[i]->getName() + ", " << endl;
+		if (type == 0) {
+			// Getting the states...
+			for (size_t i = 0; i < graph.getStates().size(); i++) {
+				temp = graph.getStates()[i]->getName();
+				states += to_string(temp) + ", ";
+			}
+			// Getting the simbols...
+			for (size_t i = 0; i < graph.getSimbols().size(); i++) {
+				simbols += string(1, graph.getSimbols()[i]) + ", ";
+			}
+			// Getting the transitions...
+			for (size_t i = 0; i < graph.getTransitions().size(); i++) {
+				transitions += graph.getTransitions()[i]->toString() + ", ";
+			}
+			// Getting the Start.
+			temp = graph.getStart()->getName();
+			start += to_string(temp) + " }";
+			// Getting the End.
+			for (size_t i = 0; i < graph.getStates().size(); i++) {
+				if (graph.getStates()[i]->getIsFinal()) {
+					temp = graph.getStates()[i]->getName();
+					end += to_string(temp) + ", ";
+				}
+			}
 		}
-		// Getting the simbols...
-		for (size_t i = 0; i < _simbols.size(); i++) {
-			simbols += string(1, _simbols[i]) + ", ";
+		else if (type == 1) {
+			// Getting the states...
+			for (size_t i = 0; i < graph.getStates().size(); i++) {
+				temp = graph.getStates()[i]->getName();
+				states += string(1, temp) + ", ";
+			}
+			// Getting the simbols...
+			for (size_t i = 0; i < graph.getSimbols().size(); i++) {
+				simbols += string(1, graph.getSimbols()[i]) + ", ";
+			}
+			// Getting the transitions...
+			for (size_t i = 0; i < graph.getTransitions().size(); i++) {
+				transitions += string(graph.getTransitions()[i]->toString()) + ", ";
+			}
+			// Getting the Start.
+			temp = graph.getStart()->getName();
+			start += string(1, temp) + " }";
+			// Getting the End.
+			for (size_t i = 0; i < graph.getStates().size(); i++) {
+				if (graph.getStates()[i]->getIsFinal()) {
+					temp = graph.getStates()[i]->getName();
+					end += string(1, temp) + ", ";
+				}
+			}
 		}
-		// Getting the transitions...
-		for (size_t i = 0; i < _transitions.size(); i++) {
-			transitions += _transitions[i]->toString() + ", ";
-		}
-		// Getting the Start.
-		start += to_string(_startState->getName()) + " }";
-		// Getting the End.
-		end += to_string(_endState->getName()) + " }";
 		// Eding format...
 		states += " }";
 		simbols += " }";
 		transitions += " }";
+		end += " }";
 
 		// Printing stuff in the file...
 		outfile << states << '\n' << simbols << '\n' << start << '\n' << end << '\n' << transitions << endl;
@@ -597,4 +604,107 @@ void Graph::asFile(Graph &graph, string &name) {
 	catch (int e) {
 		cout << "Error while making the file, error code: " + e << endl;
 	}
+}
+
+// Make a DFA base on a NFA with subsuts construction.
+Graph* Graph::NFAtoDFA(Graph *NFA) {
+	Graph *DFA = new Graph();
+	vector<State::Transition*> newTransitions = *new vector<State::Transition*>();
+
+	vector<char> simbols = *new vector<char>();
+	vector<State*> temp = *new vector<State*>();
+	State::Transition *tempT = new State::Transition();
+	char stateName = 'A';
+	int t = 0;
+
+	vector<State*> Dtran[24][100];
+	vector< vector<State*> > Dstates = *new vector< vector<State*> >();
+	vector<State*> U = *new vector<State*>();
+
+	// While there're States unvisited, we must iterate.
+	size_t i = 0;
+	simbols = NFA->getSimbols();
+	
+	// First state for Dstate is e-closure(s_0)
+	Dstates.push_back(eClosure(NFA->getStates()[0]));
+	temp.push_back(&*new State(stateName));
+	stateName++;
+
+	// We need to look for states in Dstates that are unmarked.
+	while (i < Dstates.size()) {
+		// Mark the current state.
+		// No need, since we will just move through the size of Dstates, visiting only once each.
+
+		// Iterate for each simbol in the alphabet.
+		for (size_t j = 0; j < simbols.size(); j++) {
+			// Calculate the e-closure(move()) for current state in the j-simbol.
+			U = eClosure(move(Dstates[i], simbols[j]));
+			// We check if the state is already in the Dstates.
+			if (find(Dstates.begin(), Dstates.end(), U) == Dstates.end()) {
+				// If it doesn't, then we must add it and create a new state.
+				if (U.size() > 0) {
+					Dstates.push_back(U);
+					temp.push_back(&*new State(stateName));
+					stateName++;
+				}
+			}
+			if (U.size() > 0) {
+				Dtran[i][j] = U;
+			}
+		}
+
+		i++;
+	}
+
+	// After we have all the DFA States in Dstates we need to make them states and give them transitions.
+	// But first... LET ME TAKE A SELFIE!!... Sorry about that, we need to deal with dead ends... nvm I did it early... 
+	for (i = 0; i < Dstates.size(); i++) {
+		for (size_t j = 0; j < simbols.size(); j++) {
+			// First I need to know if the state has a transition for this simbol...
+			if (Dtran[i][j].size() > 0) {
+				// If it does, I need to know what transition it is.
+				t = (find(Dstates.begin(), Dstates.end(), Dtran[i][j]) - Dstates.begin());
+				// Now that i know were the transition takes to...
+				tempT = new State::Transition(simbols[j], temp[t]);
+				temp[i]->addTransition(tempT);
+				newTransitions.push_back(tempT);
+				// I must check if the current state is final...
+				if (find(Dtran[i][j].begin(), Dtran[i][j].end(), NFA->getEnd()) != Dtran[i][j].end()) {
+					temp[t]->setIsFinal(true);
+				}
+			}
+		}
+	}
+
+	// Now add everithing to the DFA Graph.
+	DFA->setSimbols(simbols);			// Set Simbols...
+	DFA->setStates(temp);				// Set States...
+	DFA->setStart(temp[0]);				// Set Start node...
+	// No need to set end...
+	DFA->setTransitions(newTransitions);
+
+	return DFA;
+}
+
+// This function will simulate any given DFA.
+bool Graph::simulateDFA(Graph *DFA, string chain) {
+	vector<State*> S = *new vector<State*>();
+
+	// First we move move from s_0.
+	S = move(DFA->getStart(), chain[0]);
+
+	// Now we iterate through the NFA.
+	size_t i = 0;
+	while (i < chain.size()) {
+		S = move(S, chain[i]);
+		i++;
+	}
+
+	// Now we just check if the final state is in S.
+	for (i = 0; i < S.size(); i++) {
+		if (S[i]->getIsFinal()) {
+			return true;
+		}
+	}
+	return false;
 }

@@ -70,11 +70,13 @@ public:
 	// Setter for transition.
 	void setTransitions(vector<Transition*> transitions) { _transitions = transitions; };
 	void setName(int name) { _name = name; };
+	void setIsVisited(bool isIt) { _isVisited = isIt; };
 	
 	// Getters...
 	int getName() { return _name; };
 	vector<Transition*> getTransitions() { return _transitions; };
 	bool getIsFinal() { return _isFinal; };
+	bool getIsVisited() { return _isVisited; };
 
 	// Method to add a transition to the transitions stack.
 	void addTransition(Transition *transition);
@@ -85,6 +87,6 @@ private:
 	int _name;
 	vector<Transition*> _transitions;
 	bool _isFinal;
-
+	bool _isVisited;
 };
 

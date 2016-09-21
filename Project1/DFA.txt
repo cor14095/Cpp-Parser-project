@@ -1,0 +1,5 @@
+ESTADOS = { A, B, C, D, E,  }
+SIMBOLOS = { a, b,  }
+INICIO = { A }
+ACEPTACION = { E,  }
+TRANSICIONES = { (a->66), (b->67), (a->66), (b->68), (a->66), (b->67), (a->66), (b->69), (a->66), (b->67),  }

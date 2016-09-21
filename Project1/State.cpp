@@ -5,13 +5,15 @@
 
 // General constructor.
 State::State() {
-	int _name = *new int();
+	char _name = *new char();
 	stack<Transition*> _transitions = *new stack<Transition*>();
+	_isVisited = false;
 }
 // Constructor with only name.
 State::State(int name) {
 	_name = name;
 	stack<Transition*> _transitions = *new stack<Transition*>();
+	_isVisited = false;
 }
 //Constructor with name and 1 or more transitions
 State::State(int name, vector<Transition> transitions, int size) {
@@ -19,6 +21,7 @@ State::State(int name, vector<Transition> transitions, int size) {
 	for (int i = 0; i < size; i++) {
 		_transitions.push_back(&transitions[i]);
 	}
+	_isVisited = false;
 }
 
 // General destructor.

@@ -51,7 +51,7 @@ int main()
 		Graph *nfa = new Graph();
 		string nameNFA = "NFA";
 		nfa = nfa->makeNFA(chain);
-		nfa->asFile(*nfa, nameNFA);
+		nfa->asFile(*nfa, nameNFA, 0);
 		cout << "\n\nEl archivo del NFA se creo con exito!\n\n" << endl;
 
 		string simulation = "Perry";
@@ -64,6 +64,28 @@ int main()
 			}
 
 			if (nfa->simulateNFA(nfa, simulation)) {
+				cout << "La cadena es valida.\n" << endl;
+			}
+			else {
+				cout << "La cadena no es valida.\n" << endl;
+			}
+		}
+
+		Graph *DFA = new Graph();
+		DFA = nfa->NFAtoDFA(nfa);
+		string nameDFA = "DFA";
+		DFA->asFile(*DFA, nameDFA, 1);
+		cout << "\n\nEl archivo del AFD se creo con exito!\n\n" << endl;
+		simulation = "Perry";
+		while (true) {
+			cout << "Ingrese la cadena que desea probar, 'Salir' para terminar\n" << endl;
+			cin >> simulation;
+
+			if (simulation.compare("Salir") == 0) {
+				break;
+			}
+
+			if (DFA->simulateDFA(DFA, simulation)) {
 				cout << "La cadena es valida.\n" << endl;
 			}
 			else {

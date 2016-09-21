@@ -60,8 +60,12 @@ public:
 	Graph* makeNFA(string expression);
 	// This function will simulate the NFA.
 	bool simulateNFA(Graph *NFA, string chain);
+	// Make a DFA base on a NFA with subsuts construction.
+	Graph* NFAtoDFA(Graph *NFA);
+	// This function will simulate any given DFA.
+	bool simulateDFA(Graph *DFA, string chain);
 	// This function prints the NFA as a file.
-	void asFile(Graph &graph, string &name);
+	void asFile(Graph &graph, string &name, int type);
 
 private:
 	// List of all states.
