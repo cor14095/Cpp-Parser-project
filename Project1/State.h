@@ -22,8 +22,8 @@ Private Variables:
 
 class State
 {
-public:
 	// Transition must be public to be used in the graph.
+public: 
 	class Transition {
 		/*
 		Transitions is just a class that let me save
@@ -32,27 +32,29 @@ public:
 	public:
 		// Constructors....
 		Transition() {
-			char *_name = NULL;
+			char _name = ' ';
 			State *_next = NULL;
 		};
-		Transition(char *name, State *next) {
+		Transition(char name, State *next) {
 			_name = name;
 			_next = next;
 		};
 
 		// Setters...
-		void setName(char *name) { _name = name; };
+		void setName(char name) { _name = name; };
 		void setNext(State *next) { _next = next; };
 
 		// Getters...
-		char *getName() { return _name; };
+		char getName() { return _name; };
 		State *getState() { return _next; };
 
+		// toString...
+		string toString() { return "(" + string(1, _name) + "->" + to_string(_next->getName()) + ")"; };
+
 	private:
-		char *_name;
+		char _name;
 		State *_next;
 	};
-
 	// General constructor.
 	State();
 	// Constructor with only name.
@@ -72,6 +74,7 @@ public:
 	// Getters...
 	int getName() { return _name; };
 	vector<Transition*> getTransitions() { return _transitions; };
+	bool getIsFinal() { return _isFinal; };
 
 	// Method to add a transition to the transitions stack.
 	void addTransition(Transition *transition);

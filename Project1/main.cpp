@@ -48,8 +48,28 @@ int main()
 
 		cout << "Chain is: " << chain2 << endl;
 
-		Graph nfa;
-		nfa.makeNFA(chain);
+		Graph *nfa = new Graph();
+		string nameNFA = "NFA";
+		nfa = nfa->makeNFA(chain);
+		nfa->asFile(*nfa, nameNFA);
+		cout << "\n\nEl archivo del NFA se creo con exito!\n\n" << endl;
+
+		string simulation = "Perry";
+		while (true) {
+			cout << "Ingrese la cadena que desea probar, 'Salir' para terminar\n" << endl;
+			cin >> simulation;
+
+			if (simulation.compare("Salir") == 0) {
+				break;
+			}
+
+			if (nfa->simulateNFA(nfa, simulation)) {
+				cout << "La cadena es valida.\n" << endl;
+			}
+			else {
+				cout << "La cadena no es valida.\n" << endl;
+			}
+		}
 	}
 	else
 	{

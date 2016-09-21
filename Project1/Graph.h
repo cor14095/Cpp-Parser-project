@@ -35,21 +35,21 @@ public:
 	//This makles a graph.
 	Graph(int name, char simbol);
 	// Constructor with all parameters.
-	Graph(vector<State*> states, vector<char*> simbols, vector<State::Transition*> transitions, State *startState, State *_endStates);
+	Graph(vector<State*> states, vector<char> simbols, vector<State::Transition*> transitions, State *startState, State *_endStates);
 
 	// General destructor.
 	~Graph();
 
 	// Setters...
 	void setStates(vector<State*> states) { _states = states; };
-	void setSimbols(vector<char*> simbols) { _simbols = simbols; };
+	void setSimbols(vector<char> simbols) { _simbols = simbols; };
 	void setTransitions(vector<State::Transition*> transitions) { _transitions = transitions; };
 	void setStart(State *start) { _startState = start; };
 	void setEnd(State *endStates) { _endState = endStates; };
 
 	// Getters...
 	vector<State*> getStates() { return _states; };
-	vector<char*> getSimbols() { return _simbols; };
+	vector<char> getSimbols() { return _simbols; };
 	vector<State::Transition*> getTransitions() { return _transitions; };
 	State *getStart() { return _startState; };
 	State *getEnd() { return _endState; };
@@ -57,13 +57,17 @@ public:
 	// Main functions to be called from main program.
 	void addState(State *state) { _states.push_back(state); };
 	// Make an NFA with Thompson's contrusction.
-	Graph makeNFA(string expression);
+	Graph* makeNFA(string expression);
+	// This function will simulate the NFA.
+	bool simulateNFA(Graph *NFA, string chain);
+	// This function prints the NFA as a file.
+	void asFile(Graph &graph, string &name);
 
 private:
 	// List of all states.
 	vector<State*> _states;
 	// List of all simbols.
-	vector<char*> _simbols;
+	vector<char> _simbols;
 	// A list for all the transitions.
 	vector<State::Transition*> _transitions;
 	// The first state.

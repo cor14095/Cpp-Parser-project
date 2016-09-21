@@ -33,18 +33,18 @@ void State::addTransition(Transition *transition) {
 
 // Function to get next States.
 vector<State*> State::getNext(char transition) {
-	vector<State*> transitions;
+	vector<State*> nextStates;
 
 	// We're gonna move in the list index to don't mess around with stuff
 	for (size_t i = 0; i < _transitions.size(); i++) {
 		// If the names are the same, then the transition can happend
 		// so we save the state for that transition.
-		if (_transitions[i]->getName() == &transition) {
-			transitions.push_back(_transitions[i]->getState());
+		if (_transitions[i]->getName() == transition) {
+			nextStates.push_back(_transitions[i]->getState());
 		}
 	}
 
 	// At the end we should have a list of the states were we can go 
 	// with the given token.
-	return transitions;
+	return nextStates;
 }
