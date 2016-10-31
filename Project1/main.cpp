@@ -5,6 +5,7 @@
 #include "AST.h"
 #include "BinTree.h"
 #include "Graph.h"
+#include "reader.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ int main()
 {
 	// Some test variables...
 	string testChain;
-
+	
 	// Ask the user to set the chain...
 	cout << "Ingrese su cadena:\n";
 	cin >> testChain;
@@ -43,8 +44,8 @@ int main()
 
 		BinTree asTree = myAST.doASTree();
 		string chain2 = " ";
-		//chain2 = asTree.printTree(chain2);
-		//reverse(chain2.begin(), chain2.end());
+		chain2 = asTree.printTree(chain2);
+		reverse(chain2.begin(), chain2.end());
 
 		cout << "Chain is: " << chain2 << endl;
 
@@ -97,5 +98,14 @@ int main()
 	{
 		cout << "no...\n\n";
 	}
+
+	// Here we're gonna test the reader, so brace yourself because i made this in like 2 hours...
+
+	cout << "Lectura del archivo.." << endl;
+	reader *read = new reader();
+	cout << "El archivo se leyo con exito." << endl;
+
+	cin >> testChain;
+
 	return 0;
 }

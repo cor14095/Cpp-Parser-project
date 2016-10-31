@@ -1,3 +1,12 @@
-﻿  AST.cpp
+﻿  reader.cpp
+  main.cpp
+  PostFix.cpp
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(204): warning C4305: 'argument': truncation from 'int' to 'char'
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(204): warning C4309: 'argument': truncation of constant value
+  Graph.cpp
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\graph.cpp(42): warning C4566: character represented by universal-character-name '\u03B5' cannot be represented in the current code page (1252)
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\graph.cpp(407): warning C4566: character represented by universal-character-name '\u03B5' cannot be represented in the current code page (1252)
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\graph.cpp(439): warning C4566: character represented by universal-character-name '\u03B5' cannot be represented in the current code page (1252)
+  Generating Code...
   Project1.vcxproj -> C:\Users\Perry\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
   Project1.vcxproj -> C:\Users\Perry\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)

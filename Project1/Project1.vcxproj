@@ -74,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_NONSTDC_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,6 +117,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PostFix.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="reader.cpp" />
     <ClCompile Include="State.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +126,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="PostFix.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="reader.h" />
     <ClInclude Include="State.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <algorithm>
 #include <vector>
@@ -39,7 +39,7 @@ Graph::~Graph()
 // in postFix order, using Thompson's construction algorithm.
 Graph *Graph::makeNFA(string expression) {
 	// Some useful variables.
-	char epsilon = 'E';
+	char epsilon = 'ε';
 	vector<State*> states = *new vector<State*>();
 	vector<State*> cStates1 = *new vector<State*>();
 	vector<State*> cStates2 = *new vector<State*>();
@@ -404,7 +404,7 @@ vector<State*> eClosure(State *s) {
 	// Then we iterate based on the next states...
 	size_t i = 0;
 	while (i < tempStates.size()) {
-		copy1 = tempStates[i]->getNext('E');
+		copy1 = tempStates[i]->getNext('ε');
 		// We need to know if there's any duplicated element.
 		for (size_t k = 0; k < copy1.size(); k++) {
 			if (find(tempStates.begin(), tempStates.end(), copy1[k]) == tempStates.end()) {
@@ -436,7 +436,7 @@ vector<State*> eClosure(vector<State*> T) {
 
 	size_t i = 0;
 	while (i < tempStates.size()) {
-		copy1 = tempStates[i]->getNext('E');
+		copy1 = tempStates[i]->getNext('ε');
 		// We need to know if there's any duplicated element.
 		for (size_t j = 0; j < copy1.size(); j++) {
 			if (find(tempStates.begin(), tempStates.end(), copy1[j]) == tempStates.end()) {
@@ -614,7 +614,7 @@ Graph* Graph::NFAtoDFA(Graph *NFA) {
 	vector<char> simbols = *new vector<char>();
 	vector<State*> temp = *new vector<State*>();
 	State::Transition *tempT = new State::Transition();
-	char stateName = 'A';
+	int stateName = 0;
 	int t = 0;
 
 	vector<State*> Dtran[24][100];
