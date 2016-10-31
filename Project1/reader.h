@@ -28,5 +28,6 @@ public:
 	
 
 private:
-	map <string, string> tokens;
+	map <string, string> _tokens;
+	bool _errorFlag;
 };
