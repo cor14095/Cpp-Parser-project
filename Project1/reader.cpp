@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <fstream>
+#include <regex>
 
 using namespace std;
 
@@ -32,6 +33,24 @@ float compareStrings(string word, string compareTo) {
 	}
 
 	return percentage;
+
+}
+
+// This function will make sure I have a balid set declaration.
+string validSetDec(string expr) {
+	
+	// Define a string to hold expresion without blank spaces.
+	string tempExpr = "";
+
+	// First we define the set and set declaration expresions.
+	regex set("([^\"]*)|([A-Za-z]+[A-Za-z0-9]*)|([^']|CHR\\(\\d+\\))((\\+|\\-)([^\"]*)|([A-Za-z]+[A-Za-z0-9]*)|([^']|CHR\\(\\d+\\)))*");
+	regex setDecl("([A-Za-z]+[A-Za-z0-9]*)[=](([^\"]*)|([A-Za-z]+[A-Za-z0-9]*)|([^']|CHR\\(\\d+\\))((\\+|\\-)([^\"]*)|([A-Za-z]+[A-Za-z0-9]*)|([^']|CHR\\(\\d+\\)))*)[\\.]");
+
+	// Then we remove the blank spaces...
+	for (rsize_t i = 0; i < size(expr); i++) {
+		if (expr[i] != ' ')
+
+	}
 
 }
 
