@@ -47,11 +47,61 @@ string validSetDec(string expr) {
 	regex setDecl("([A-Za-z]+[A-Za-z0-9]*)[=](([^\"]*)|([A-Za-z]+[A-Za-z0-9]*)|([^']|CHR\\(\\d+\\))((\\+|\\-)([^\"]*)|([A-Za-z]+[A-Za-z0-9]*)|([^']|CHR\\(\\d+\\)))*)[\\.]");
 
 	// Then we remove the blank spaces...
+	/*
 	for (rsize_t i = 0; i < size(expr); i++) {
 		if (expr[i] != ' ')
 
 	}
+	*/
+}
 
+// This function will get the set declaration and return the regular expresion for the expression.
+string getExpression(string expr, int type) {
+	
+	string tempExpr = "";
+	string id = "";
+	string content = "";
+	int equalPos = 0;
+
+	// First we remove blank spaces.
+	for (rsize_t i = 0; i < size(expr); i++) {
+		if (expr[i] != ' ')
+			tempExpr += expr[i];
+
+		// Then I find the position of the '=' simbol.
+		if (expr[i] == '=') {
+			equalPos = i;
+		}
+	}
+
+	expr = tempExpr;
+	tempExpr = "";
+	
+	// Based on the type it'll do a set, key word or token declaration interpretation.
+	switch (type)
+	{
+	case 1:
+		// First case is for set declaration.
+		id = expr.substr(0, equalPos - 1);
+		content = expr.substr(equalPos + 1, string::npos);
+
+		// Now I need to proces a 
+
+		break;
+	case 2:
+		// Second case is for Key word.
+
+		break;
+	case 3:
+		// Third case is for token declaration.
+
+		break;
+	default:
+		expr = "-1";
+		break;
+
+		return expr;
+	}
 }
 
 reader::reader() 
@@ -179,6 +229,7 @@ reader::reader()
 			// Now we check if we should check for Character, KeyWord or Token.
 			// If set declaration is true, then we must check for characters.
 			else if (setDec) {
+				// I must make a function that builds a regular expression based on a set dec.
 
 			}
 			// If keword declaration is true, then we must check for keywords.

@@ -117,6 +117,10 @@ bool isLast(string chain) {
 // The trick happens here...
 void PostFix::generatePostFix() {
 	bool signo = false;		// This variable will tell me when 2 tokens have an implicit '&'
+	int asciiValue = 0;
+	int asciiCounter = 5;
+	char asciiChar;
+	string valueChain = "";
 	// Test stuff...
 	string testChain = "";
 	string testStack = "";
@@ -205,6 +209,58 @@ void PostFix::generatePostFix() {
 				//_outputVector.push_back('ε');
 			// Then the | simbol...
 			_outputVector.push_back('|');
+			break;
+		case 'C':
+			// Here we're gonna validate for CHAR(##)
+
+			asciiCounter = 0;
+			asciiValue = 0;
+			valueChain = "";
+
+			if (_tokenVector[i + 1] == 'H') {
+				if (_tokenVector[i + 2] == 'R') {
+					if (_tokenVector[i + 3] == '(') {
+						// In this while I get the value of the intended ascii in a string.
+						// And in the ascii counter the length of the chain.
+						while (_tokenVector[i + (4 + asciiCounter)] != ')') {
+							valueChain += _tokenVector[i + (4 + asciiCounter)];
+							asciiCounter++;
+
+							// Quick validation in case while loop is infinite.
+							if (asciiCounter > 10) {
+								// An ascii value over 10 is just to stupid.
+								_errorFlag = true;	// Flag is true.
+								i += 1000;			// End the main loop.
+								break;				// break the while.
+							}
+
+						}
+							
+						// Quick validation in case they enter CHAR().
+						if (asciiCounter == 0) {
+							asciiChar = 'C';
+						}
+						else {
+							asciiValue = stoi(valueChain);
+							asciiChar = asciiValue;
+							// Add to the i-counter 3 chars 'HR(' then the length of the ascii int and the last ')', so next iteration will be next char after 'CHAR(##)'.
+							i += 3 + asciiCounter + 1;
+						}
+					}
+					else {
+						asciiChar = 'C';
+					}
+				}
+				else {
+					asciiChar = 'C';
+				}
+			}
+			else {
+				asciiChar = 'C';
+			}
+
+			_outputVector.push_back(asciiChar);
+
 			break;
 		case ' ':
 			// Weeeeeeeeee...!!
