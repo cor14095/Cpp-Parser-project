@@ -259,7 +259,20 @@ void PostFix::generatePostFix() {
 				asciiChar = 'C';
 			}
 
+			if (signo) {
+				insertOperator('.');
+				signo = false;
+			}
+
 			_outputVector.push_back(asciiChar);
+			if (!isLast(_chain.substr(i, _chain.size() - i))) {
+				// If it's not a last letter then it need a sign.
+				signo = true;
+			}
+			else
+			{
+				signo = false;
+			}
 
 			break;
 		case ' ':

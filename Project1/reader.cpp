@@ -53,6 +53,8 @@ string validSetDec(string expr) {
 
 	}
 	*/
+
+	return " ";
 }
 
 // This function will get the set declaration and return the regular expresion for the expression.

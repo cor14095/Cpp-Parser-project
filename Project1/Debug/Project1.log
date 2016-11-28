@@ -1,15 +1,5 @@
-﻿  reader.cpp
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.h(31): error C2143: syntax error: missing ';' before '<'
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.h(31): error C2238: unexpected token(s) preceding ';'
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.cpp(42): error C2143: syntax error: missing ';' before '}'
-  PostFix.cpp
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(204): warning C4305: 'argument': truncation from 'int' to 'char'
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(204): warning C4309: 'argument': truncation of constant value
-  Generating Code...
-  Compiling...
-  main.cpp
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.h(31): error C2143: syntax error: missing ';' before '<'
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\perry\documents\visual studio 2015\projects\project1\project1\reader.h(31): error C2238: unexpected token(s) preceding ';'
-  Generating Code...
+﻿  PostFix.cpp
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(208): warning C4305: 'argument': truncation from 'int' to 'char'
+c:\users\perry\documents\visual studio 2015\projects\project1\project1\postfix.cpp(208): warning C4309: 'argument': truncation of constant value
+  Project1.vcxproj -> C:\Users\Perry\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.exe
+  Project1.vcxproj -> C:\Users\Perry\Documents\Visual Studio 2015\Projects\Project1\Debug\Project1.pdb (Partial PDB)
